@@ -14,19 +14,15 @@ public class Actividad {
     private String nombre;
     private String descripcion;
     private String curso;
-    private int dia;
-    private int mes;
-    private int year;
+    private String fecha;
     private String estado;
 
-    public Actividad(String codigo, String nombre, String descripcion, String curso, int dia, int mes, int year, String estado) {
+    public Actividad(String codigo, String nombre, String descripcion, String curso, String fecha, String estado) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.curso = curso;
-        this.dia = dia;
-        this.mes = mes;
-        this.year = year;
+        this.fecha = fecha;
         this.estado = estado;
     }
 
@@ -35,8 +31,7 @@ public class Actividad {
         return "Código de la Activdad: " + codigo + "\nNombre de la Activdad: "+
                 nombre + "\nDescripción de la Activdad: " + descripcion + 
                 "\nNombre del Curso: " + curso + "\nEstado de la Activdad: " +
-                estado + "\nFecha de la Activdad: " + dia + "/" + mes + "/" + 
-                year;
+                estado + "\nFecha de la Activdad: " + fecha;
     }
     
     
