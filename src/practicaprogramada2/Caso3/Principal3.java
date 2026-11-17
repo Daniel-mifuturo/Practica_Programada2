@@ -41,7 +41,7 @@ public class Principal3 {
 
             case 1:
                 String codigo = JOptionPane.showInputDialog(
-                    "Inserte el código de la entrega:");
+                    "Ingrese el código de la entrega:");
                 if (codigo == null || codigo.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
                     "Error! Escribe un código válido",

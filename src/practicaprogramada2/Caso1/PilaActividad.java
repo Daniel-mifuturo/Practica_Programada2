@@ -56,7 +56,7 @@ public class PilaActividad {
 
         JOptionPane.showMessageDialog(null,
                 informacion,
-                "Actividades pendientes",
+                "Historial de actividades pendientes",
                 JOptionPane.INFORMATION_MESSAGE);
     }
         

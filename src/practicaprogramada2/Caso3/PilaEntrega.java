@@ -54,7 +54,7 @@ public class PilaEntrega {
         }
         
         JOptionPane.showMessageDialog(null,informacion,
-        "Entregas pendientes",
+        "Historial de Entregas",
         JOptionPane.INFORMATION_MESSAGE);
     }
     
@@ -65,8 +65,7 @@ public class PilaEntrega {
             return;
             }
         
-        Entrega entrega = cima.getEntrega();
-        cima = cima.getSiguiente();
+        Entrega entrega = desapilar();
         
         JOptionPane.showMessageDialog(null,"Entrega eliminada correctamente:\n\n" 
                 + entrega,"Eliminar entrega",JOptionPane.INFORMATION_MESSAGE);

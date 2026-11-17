@@ -42,7 +42,7 @@ public class Principal1 {
 
             case 1:
                 String codigo = JOptionPane.showInputDialog(
-                    "Inserte el código de la actividad:");
+                    "Ingrese el código de la actividad:");
                 if (codigo == null || codigo.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
                     "Error! Escribe un código válido",
@@ -52,7 +52,7 @@ public class Principal1 {
                 codigo = codigo.trim();
 
                 String nombre = JOptionPane.showInputDialog(
-                    "Inserte el nombre del Estudiante:");
+                    "Ingrese el nombre del Estudiante:");
                 if (nombre == null || nombre.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
                     "Error! Escribe un nombre válido",
@@ -62,7 +62,7 @@ public class Principal1 {
                 nombre = nombre.trim();
 
                 String descripcion = JOptionPane.showInputDialog(
-                    "Inserte la descripción de la actividad:");
+                    "Ingrese la descripción de la actividad:");
                 if (descripcion == null || descripcion.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
                     "Error! Escribe una descripción válida",
@@ -72,7 +72,7 @@ public class Principal1 {
                 descripcion = descripcion.trim();                
 
                 String curso = JOptionPane.showInputDialog(
-                    "Inserte el nombre del curso:");
+                    "Ingrese el nombre del curso:");
                 if (curso == null || curso.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
                     "Error! Escribe un curso válido",
@@ -82,7 +82,7 @@ public class Principal1 {
                 curso = curso.trim();
 
                 String estado = JOptionPane.showInputDialog(
-                    "Inserte el estado de la actividad:");
+                    "Ingrese el estado de la actividad:");
                 
                 if (estado == null || estado.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,

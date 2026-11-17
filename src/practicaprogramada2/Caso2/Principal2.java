@@ -44,7 +44,7 @@ public class Principal2 {
 
             case 1:
                 String codigo = JOptionPane.showInputDialog(
-                "Inserte el código de la modificación:");
+                "Ingrese el código de la modificación:");
 
                 if (codigo == null || codigo.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
@@ -55,7 +55,7 @@ public class Principal2 {
                 codigo = codigo.trim();
 
                 String descripcion = JOptionPane.showInputDialog(
-                    "Inserte la descripción de la modificación:");
+                    "Ingrese la descripción de la modificación:");
                 
                 if (descripcion == null || descripcion.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
@@ -66,7 +66,7 @@ public class Principal2 {
                 descripcion = descripcion.trim();
 
                 String responsable = JOptionPane.showInputDialog(
-                    "Inserte el nombre de la persona responsable:");
+                    "Ingrese el nombre de la persona responsable:");
                 
                 if (responsable == null || responsable.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
@@ -77,7 +77,7 @@ public class Principal2 {
                 responsable = responsable.trim();
 
                 String fecha = JOptionPane.showInputDialog(
-                    "Inserte la fecha de la modificación:");
+                    "Ingrese la fecha de la modificación:");
                 
                 if (fecha == null || fecha.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
