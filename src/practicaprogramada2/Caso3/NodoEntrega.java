@@ -10,4 +10,30 @@ package practicaprogramada2.Caso3;
  */
 public class NodoEntrega {
     
+    Entrega entrega;
+    NodoEntrega siguiente;
+    
+    public NodoEntrega(Entrega entrega){
+        this.entrega=entrega;
+        this.siguiente=null;
+    }
+
+    public Entrega getEntrega() {
+        return entrega;
+    }
+
+    public void setEntrega(Entrega entrega) {
+        this.entrega = entrega;
+    }
+
+    public NodoEntrega getSiguiente() {
+        return siguiente;
+    }
+
+    public void setSiguiente(NodoEntrega siguiente) {
+        this.siguiente = siguiente;
+    }
+    
+    
+    
 }
