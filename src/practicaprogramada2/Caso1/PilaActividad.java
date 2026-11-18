@@ -67,9 +67,7 @@ public class PilaActividad {
         return;
         }
 
-        Actividad actividad = cima.getActividad();
-
-        cima = cima.getSiguiente();
+        Actividad actividad = desapilar();
 
         JOptionPane.showMessageDialog(null,"Actividad eliminada correctamente:\n\n" 
                 + actividad,"Eliminar actividad",JOptionPane.INFORMATION_MESSAGE);
