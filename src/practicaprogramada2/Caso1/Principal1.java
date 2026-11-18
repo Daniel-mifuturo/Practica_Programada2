@@ -33,7 +33,7 @@ public class Principal1 {
         );
 
         if (menu == null) {
-            opcion = 6;
+            opcion = 5;
         } else {
             opcion = Integer.parseInt(menu);
         }
