@@ -19,23 +19,32 @@ public class Principal2 {
     public static void main(String[] args) {
         
         PilaModificacion pila = new PilaModificacion();
+        ListaDobleCircular integrantes = new ListaDobleCircular();//lista de integrantes del equipo
         
                 int opcion = 0;
 
         do {
 
         String menu = JOptionPane.showInputDialog(
-            "===== MENU DE MODIFICACIONES =====\n\n"
+            "===== MENU DEL PROYECTO =====\n\n"
+            + "--- Historial de modificaciones ---\n"
             + "1. Agregar modificación\n"
             + "2. Eliminar modificación\n"
             + "3. Mostrar Modificaciones\n"
             + "4. Verificar si la pila está vacía\n"
-            + "5. Salir\n\n"
+            + "--- Integrantes del equipo ---\n"
+            + "5. Agregar integrante al inicio\n"
+            + "6. Agregar integrante al final\n"
+            + "7. Eliminar integrante\n"
+            + "8. Buscar integrante\n"
+            + "9. Mostrar integrantes (hacia adelante)\n"
+            + "10. Mostrar integrantes (hacia atrás)\n"
+            + "11. Salir\n\n"
             + "Seleccione una opción:"
         );
 
         if (menu == null) {
-            opcion = 5;
+            opcion = 11;
         } else {
             opcion = Integer.parseInt(menu);
         }
@@ -112,6 +121,32 @@ public class Principal2 {
                     break;
 
                 case 5:
+                    agregarIntegrante(integrantes, true);
+                    break;
+
+                case 6:
+                    agregarIntegrante(integrantes, false);
+                    break;
+
+                case 7:
+                    eliminarIntegrante(integrantes);
+                    break;
+
+                case 8:
+                    buscarIntegrante(integrantes);
+                    break;
+
+                case 9:
+                    JOptionPane.showMessageDialog(null, integrantes.recorrerAdelante(),
+                            "Integrantes (hacia adelante)", JOptionPane.PLAIN_MESSAGE);
+                    break;
+
+                case 10:
+                    JOptionPane.showMessageDialog(null, integrantes.recorrerAtras(),
+                            "Integrantes (hacia atrás)", JOptionPane.PLAIN_MESSAGE);
+                    break;
+
+                case 11:
                     JOptionPane.showMessageDialog(
                         null, "Programa finalizado.");
                     break;
@@ -121,6 +156,81 @@ public class Principal2 {
                         null, "Opción incorrecta.");
             }
 
-        } while (opcion != 5);
+        } while (opcion != 11);
+    }
+
+    //solicita un texto; devuelve null si cancela o lo deja vacio
+    public static String leerTexto(String mensaje) {
+        String texto = JOptionPane.showInputDialog(mensaje);
+        if (texto == null) {
+            JOptionPane.showMessageDialog(null, "Operación cancelada", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } else if (texto.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Error! El valor no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } else {
+            return texto;
+        }
+    }
+
+    //registra un integrante al inicio o al final, sin permitir codigos repetidos
+    public static void agregarIntegrante(ListaDobleCircular integrantes, boolean alInicio) {
+        String codigo = leerTexto("Ingrese el código del integrante:");
+        if (codigo == null) {
+            return;
+        }
+        if (integrantes.buscar(codigo) != null) {
+            JOptionPane.showMessageDialog(null, "Ya existe un integrante con el código " + codigo,
+                    "Código repetido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String nombre = leerTexto("Ingrese el nombre del integrante:");
+        if (nombre == null) {
+            return;
+        }
+        Integrante i = new Integrante(codigo, nombre);
+        if (alInicio) {
+            integrantes.insertarInicio(i);
+        } else {
+            integrantes.insertarFinal(i);
+        }
+        JOptionPane.showMessageDialog(null, "Integrante agregado correctamente");
+    }
+
+    //elimina un integrante por codigo
+    public static void eliminarIntegrante(ListaDobleCircular integrantes) {
+        if (integrantes.vacia()) {
+            JOptionPane.showMessageDialog(null, "No hay integrantes registrados");
+            return;
+        }
+        String codigo = leerTexto("Ingrese el código del integrante a eliminar:");
+        if (codigo == null) {
+            return;
+        }
+        if (integrantes.eliminar(codigo)) {
+            JOptionPane.showMessageDialog(null, "Integrante eliminado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe un integrante con el código " + codigo,
+                    "Eliminar integrante", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    //busca un integrante por codigo y muestra sus datos
+    public static void buscarIntegrante(ListaDobleCircular integrantes) {
+        if (integrantes.vacia()) {
+            JOptionPane.showMessageDialog(null, "No hay integrantes registrados");
+            return;
+        }
+        String codigo = leerTexto("Ingrese el código del integrante a buscar:");
+        if (codigo == null) {
+            return;
+        }
+        Integrante i = integrantes.buscar(codigo);
+        if (i != null) {
+            JOptionPane.showMessageDialog(null, i.toString(), "Integrante encontrado", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe un integrante con el código " + codigo,
+                    "Buscar integrante", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }
