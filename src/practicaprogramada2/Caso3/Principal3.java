@@ -12,138 +12,144 @@ import javax.swing.JOptionPane;
  */
 public class Principal3 {
 
-    
-     public static void main(String[] args) {
-        
+    public static void main(String[] args) {
+
         ListaDobleCircular participantes = new ListaDobleCircular();//participantes del programa
         Participante p;//participante elegido para trabajar con su historial de entregas
+        Cola cola = new Cola();
 
         int opcion = 0;
 
         do {
 
-        String menu = JOptionPane.showInputDialog(
-            "===== MENU DEL PROGRAMA DE RECICLAJE =====\n\n"
-            + "--- Participantes ---\n"
-            + "1. Agregar participante al inicio\n"
-            + "2. Agregar participante al final\n"
-            + "3. Eliminar participante\n"
-            + "4. Buscar participante\n"
-            + "5. Mostrar participantes (hacia adelante)\n"
-            + "6. Mostrar participantes (hacia atrás)\n"
-            + "--- Historial de entregas de un participante ---\n"
-            + "7. Agregar entrega\n"
-            + "8. Eliminar entrega\n"
-            + "9. Historial de entregas\n"
-            + "10. Verificar si la pila está vacía\n"
-            + "11. Salir\n\n"
-            + "Seleccione una opción:"
-        );
+            String menu = JOptionPane.showInputDialog(
+                    "===== MENU DEL PROGRAMA DE RECICLAJE =====\n\n"
+                    + "--- Participantes ---\n"
+                    + "1. Agregar participante al inicio\n"
+                    + "2. Agregar participante al final\n"
+                    + "3. Eliminar participante\n"
+                    + "4. Buscar participante\n"
+                    + "5. Mostrar participantes (hacia adelante)\n"
+                    + "6. Mostrar participantes (hacia atrás)\n"
+                    + "--- Historial de entregas de un participante ---\n"
+                    + "7. Agregar entrega\n"
+                    + "8. Eliminar entrega\n"
+                    + "9. Historial de entregas\n"
+                    + "10. Verificar si la pila está vacía\n"
+                    + "--- Solicitudes de recolección ---\n"
+                    + "11. Agregar solicitud de recolección\n"
+                    + "12. Atender solicitud de recolección\n"
+                    + "13. Consultar primera solicitud\n"
+                    + "14. Mostrar solicitudes pendientes\n"
+                    + "15. Verificar si la cola está vacía\n"
+                    + "16. Salir\n\n"
+                    + "Seleccione una opción:"
+            );
 
-        if (menu == null) {
-            opcion = 11;
-        } else {
-            opcion = Integer.parseInt(menu);
-        }
+            if (menu == null) {
+                opcion = 16;
+            } else {
+                opcion = Integer.parseInt(menu);
+            }
 
-        switch (opcion) {
+            switch (opcion) {
 
-            case 1:
-                agregarParticipante(participantes, true);
-                break;
-
-            case 2:
-                agregarParticipante(participantes, false);
-                break;
-
-            case 3:
-                eliminarParticipante(participantes);
-                break;
-
-            case 4:
-                p = pedirParticipante(participantes);
-                if (p != null) {
-                    JOptionPane.showMessageDialog(null, p.toString(), "Participante encontrado", JOptionPane.PLAIN_MESSAGE);
-                }
-                break;
-
-            case 5:
-                JOptionPane.showMessageDialog(null, participantes.recorrerAdelante(),
-                        "Participantes (hacia adelante)", JOptionPane.PLAIN_MESSAGE);
-                break;
-
-            case 6:
-                JOptionPane.showMessageDialog(null, participantes.recorrerAtras(),
-                        "Participantes (hacia atrás)", JOptionPane.PLAIN_MESSAGE);
-                break;
-
-            case 7:
-                p = pedirParticipante(participantes);//la entrega se guarda en la pila de ese participante
-                if (p == null) {
+                case 1:
+                    agregarParticipante(participantes, true);
                     break;
-                }
-                String codigo = JOptionPane.showInputDialog(
-                    "Ingrese el código de la entrega:");
-                if (codigo == null || codigo.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                    "Error! Escribe un código válido",
-                    "Error",JOptionPane.ERROR_MESSAGE);
+
+                case 2:
+                    agregarParticipante(participantes, false);
                     break;
-                }
-                codigo = codigo.trim();
 
-                String material = JOptionPane.showInputDialog(
-                    "Ingrese el material de la entrega:");
-                if (material == null || material.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                    "Error! Escribe un material válido",
-                    "Error",JOptionPane.ERROR_MESSAGE);
+                case 3:
+                    eliminarParticipante(participantes);
                     break;
-                }
-                material = material.trim();
-                
-                String dato = JOptionPane.showInputDialog(
-                "Ingrese la cantidad de material:");
 
-                if (dato == null || dato.trim().isEmpty()) {
-
-                JOptionPane.showMessageDialog(null,
-                "Error: Ingrese una cantidad válida.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-
-                break;
-                }
-
-                double cantidad = Double.parseDouble(dato.trim());               
-
-                String unidadMedida = JOptionPane.showInputDialog(
-                    "Ingrese la unidad de medida de la entrega:");
-                if (unidadMedida == null || unidadMedida.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                    "Error! Escribe una unidad de medida válida",
-                    "Error",JOptionPane.ERROR_MESSAGE);
+                case 4:
+                    p = pedirParticipante(participantes);
+                    if (p != null) {
+                        JOptionPane.showMessageDialog(null, p.toString(), "Participante encontrado", JOptionPane.PLAIN_MESSAGE);
+                    }
                     break;
-                }
-                unidadMedida = unidadMedida.trim();
-              
-                String fecha = JOptionPane.showInputDialog(
-                    "Ingrese la fecha de la actividad:");
 
-                if (fecha == null || fecha.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                    "Error! Escribe una fecha válida. Formato DD/MM/YYYY",
-                    "Error",JOptionPane.ERROR_MESSAGE);
+                case 5:
+                    JOptionPane.showMessageDialog(null, participantes.recorrerAdelante(),
+                            "Participantes (hacia adelante)", JOptionPane.PLAIN_MESSAGE);
                     break;
-                }
-                fecha = fecha.trim();
 
-                Entrega entrega = new Entrega(
-                    codigo, material, cantidad, unidadMedida,
-                    fecha);
+                case 6:
+                    JOptionPane.showMessageDialog(null, participantes.recorrerAtras(),
+                            "Participantes (hacia atrás)", JOptionPane.PLAIN_MESSAGE);
+                    break;
 
-                p.getPilaEntregas().agregarPila(entrega);
-                break;
+                case 7:
+                    p = pedirParticipante(participantes);//la entrega se guarda en la pila de ese participante
+                    if (p == null) {
+                        break;
+                    }
+                    String codigo = JOptionPane.showInputDialog(
+                            "Ingrese el código de la entrega:");
+                    if (codigo == null || codigo.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error! Escribe un código válido",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    codigo = codigo.trim();
+
+                    String material = JOptionPane.showInputDialog(
+                            "Ingrese el material de la entrega:");
+                    if (material == null || material.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error! Escribe un material válido",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    material = material.trim();
+
+                    String dato = JOptionPane.showInputDialog(
+                            "Ingrese la cantidad de material:");
+
+                    if (dato == null || dato.trim().isEmpty()) {
+
+                        JOptionPane.showMessageDialog(null,
+                                "Error: Ingrese una cantidad válida.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+
+                        break;
+                    }
+
+                    double cantidad = Double.parseDouble(dato.trim());
+
+                    String unidadMedida = JOptionPane.showInputDialog(
+                            "Ingrese la unidad de medida de la entrega:");
+                    if (unidadMedida == null || unidadMedida.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error! Escribe una unidad de medida válida",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    unidadMedida = unidadMedida.trim();
+
+                    String fecha = JOptionPane.showInputDialog(
+                            "Ingrese la fecha de la actividad:");
+
+                    if (fecha == null || fecha.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error! Escribe una fecha válida. Formato DD/MM/YYYY",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    fecha = fecha.trim();
+
+                    Entrega entrega = new Entrega(
+                            codigo, material, cantidad, unidadMedida,
+                            fecha);
+
+                    p.getPilaEntregas().agregarPila(entrega);
+                    break;
 
                 case 8:
                     p = pedirParticipante(participantes);
@@ -164,25 +170,51 @@ public class Principal3 {
                     if (p != null) {
                         if (p.getPilaEntregas().vacio()) {
                             JOptionPane.showMessageDialog(
-                                null, "La pila está vacía.");
+                                    null, "La pila está vacía.");
                         } else {
                             JOptionPane.showMessageDialog(
-                                null, "Existen entregas en la pila.");
+                                    null, "Existen entregas en la pila.");
                         }
                     }
                     break;
 
                 case 11:
+                    cola.encolar();
+                    break;
+
+                case 12:
+                    cola.desencolar();
+                    break;
+
+                case 13:
+                    cola.consultarFrente();
+                    break;
+
+                case 14:
+                    cola.mostrar();
+                    break;
+
+                case 15:
+                    if (cola.vacia()) {
+                        JOptionPane.showMessageDialog(null,
+                                "La cola está vacía.");
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "Existen solicitudes pendientes.");
+                    }
+                    break;
+
+                case 16:
                     JOptionPane.showMessageDialog(
-                        null, "Programa finalizado.");
+                            null, "Programa finalizado.");
                     break;
 
                 default:
                     JOptionPane.showMessageDialog(
-                        null, "Opción incorrecta.");
+                            null, "Opción incorrecta.");
             }
 
-        } while (opcion != 11);
+        } while (opcion != 16);
     }
 
     //solicita un texto; devuelve null si cancela o lo deja vacio

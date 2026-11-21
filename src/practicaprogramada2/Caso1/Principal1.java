@@ -17,7 +17,7 @@ public class Principal1 {
     public static void main(String[] args) {
         
         PilaActividad pila = new PilaActividad();
-
+        Cola cola = new Cola();
         int opcion = 0;
 
         do {
@@ -28,12 +28,17 @@ public class Principal1 {
             + "2. Eliminar actividad\n"
             + "3. Mostrar actividades por Estudiante\n"
             + "4. Verificar si la pila está vacía\n"
-            + "5. Salir\n\n"
+            + "5. Agregar solicitud de ayuda tecnica\n"
+            + "6. Atender solicitud de ayuda tectica\n"
+            + "7. Consultar primera solicitud\n"
+            + "8. Mostrar solicitudes pendientes\n"
+            + "9. Verificar cola\n"
+            + "10. Salir\n\n"
             + "Seleccione una opción:"
         );
 
         if (menu == null) {
-            opcion = 5;
+            opcion = 10;
         } else {
             opcion = Integer.parseInt(menu);
         }
@@ -127,8 +132,36 @@ public class Principal1 {
                             null, "Existen actividades en la pila.");
                     }
                     break;
-
+                    
                 case 5:
+                    cola.encolar();
+                    break;
+                
+                case 6:
+                    cola.desencolar();
+                    break;
+                    
+                case 7:
+                    cola.consultarFrente();
+                    break;
+                    
+                case 8:
+                    cola.mostrar();
+                    break;
+                    
+                case 9:
+                    
+                    if(cola.vacia()){
+                    
+                    JOptionPane.showMessageDialog(null, "Cola Vacia");
+                    
+                    } else {
+                    
+                    JOptionPane.showMessageDialog(null, "Hay solicitudes pendientes");
+                    }
+                    break;
+
+                case 10:
                     JOptionPane.showMessageDialog(
                         null, "Programa finalizado.");
                     break;
@@ -138,7 +171,7 @@ public class Principal1 {
                         null, "Opción incorrecta.");
             }
 
-        } while (opcion != 5);
+        } while (opcion != 10);
     }
 }
     

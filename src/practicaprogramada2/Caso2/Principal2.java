@@ -6,7 +6,6 @@ package practicaprogramada2.Caso2;
 
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author daniel
@@ -17,90 +16,96 @@ public class Principal2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         PilaModificacion pila = new PilaModificacion();
         ListaDobleCircular integrantes = new ListaDobleCircular();//lista de integrantes del equipo
-        
-                int opcion = 0;
+        Cola cola = new Cola();
+        int opcion = 0;
 
         do {
 
-        String menu = JOptionPane.showInputDialog(
-            "===== MENU DEL PROYECTO =====\n\n"
-            + "--- Historial de modificaciones ---\n"
-            + "1. Agregar modificación\n"
-            + "2. Eliminar modificación\n"
-            + "3. Mostrar Modificaciones\n"
-            + "4. Verificar si la pila está vacía\n"
-            + "--- Integrantes del equipo ---\n"
-            + "5. Agregar integrante al inicio\n"
-            + "6. Agregar integrante al final\n"
-            + "7. Eliminar integrante\n"
-            + "8. Buscar integrante\n"
-            + "9. Mostrar integrantes (hacia adelante)\n"
-            + "10. Mostrar integrantes (hacia atrás)\n"
-            + "11. Salir\n\n"
-            + "Seleccione una opción:"
-        );
+            String menu = JOptionPane.showInputDialog(
+                    "===== MENU DEL PROYECTO =====\n\n"
+                    + "--- Historial de modificaciones ---\n"
+                    + "1. Agregar modificación\n"
+                    + "2. Eliminar modificación\n"
+                    + "3. Mostrar Modificaciones\n"
+                    + "4. Verificar si la pila está vacía\n"
+                    + "--- Integrantes del equipo ---\n"
+                    + "5. Agregar integrante al inicio\n"
+                    + "6. Agregar integrante al final\n"
+                    + "7. Eliminar integrante\n"
+                    + "8. Buscar integrante\n"
+                    + "9. Mostrar integrantes (hacia adelante)\n"
+                    + "10. Mostrar integrantes (hacia atrás)\n"
+                    + "--- Asignacion de nuevas tareas ---\n"
+                    + "11. Agregar tarea pendiente\n"
+                    + "12. Retirar tarea de asignacion\n"
+                    + "13. Consultar primera tarea\n"
+                    + "14. Mostrar tareas pendientes\n"
+                    + "15. Verificar cola\n"
+                    + "16. Salir\n\n"
+                    + "Seleccione una opción:"
+            );
 
-        if (menu == null) {
-            opcion = 11;
-        } else {
-            opcion = Integer.parseInt(menu);
-        }
+            if (menu == null) {
+                opcion = 16;
+            } else {
+                opcion = Integer.parseInt(menu);
+            }
 
-        switch (opcion) {
+            switch (opcion) {
 
-            case 1:
-                String codigo = JOptionPane.showInputDialog(
-                "Ingrese el código de la modificación:");
+                case 1:
+                    String codigo = JOptionPane.showInputDialog(
+                            "Ingrese el código de la modificación:");
 
-                if (codigo == null || codigo.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                    "Error! Escribe un código válido",
-                    "Error",JOptionPane.ERROR_MESSAGE);
+                    if (codigo == null || codigo.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error! Escribe un código válido",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    codigo = codigo.trim();
+
+                    String descripcion = JOptionPane.showInputDialog(
+                            "Ingrese la descripción de la modificación:");
+
+                    if (descripcion == null || descripcion.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error! Escribe una descripción válida",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    descripcion = descripcion.trim();
+
+                    String responsable = JOptionPane.showInputDialog(
+                            "Ingrese el nombre de la persona responsable:");
+
+                    if (responsable == null || responsable.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error! Escribe un nombre válido",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    responsable = responsable.trim();
+
+                    String fecha = JOptionPane.showInputDialog(
+                            "Ingrese la fecha de la modificación:");
+
+                    if (fecha == null || fecha.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Error! Escribe una fecha válida. Formato DD/MM/YYYY",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    fecha = fecha.trim();
+
+                    Modificacion modificacion = new Modificacion(codigo, descripcion, responsable,
+                            fecha);
+
+                    pila.agregarPila(modificacion);
                     break;
-                }
-                codigo = codigo.trim();
-
-                String descripcion = JOptionPane.showInputDialog(
-                    "Ingrese la descripción de la modificación:");
-                
-                if (descripcion == null || descripcion.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                    "Error! Escribe una descripción válida",
-                    "Error",JOptionPane.ERROR_MESSAGE);
-                    break;
-                }
-                descripcion = descripcion.trim();
-
-                String responsable = JOptionPane.showInputDialog(
-                    "Ingrese el nombre de la persona responsable:");
-                
-                if (responsable == null || responsable.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                    "Error! Escribe un nombre válido",
-                    "Error",JOptionPane.ERROR_MESSAGE);
-                    break;
-                }
-                responsable = responsable.trim();
-
-                String fecha = JOptionPane.showInputDialog(
-                    "Ingrese la fecha de la modificación:");
-                
-                if (fecha == null || fecha.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                    "Error! Escribe una fecha válida. Formato DD/MM/YYYY",
-                    "Error",JOptionPane.ERROR_MESSAGE);
-                    break;
-                }
-                fecha = fecha.trim();
-
-                Modificacion modificacion = new Modificacion (codigo, descripcion, responsable, 
-                        fecha);
-
-                pila.agregarPila(modificacion);
-                break;
 
                 case 2:
                     pila.eliminar();
@@ -112,11 +117,11 @@ public class Principal2 {
 
                 case 4:
                     if (pila.vacio()) {
-                    JOptionPane.showMessageDialog(
-                        null, "La pila está vacía.");
+                        JOptionPane.showMessageDialog(
+                                null, "La pila está vacía.");
                     } else {
                         JOptionPane.showMessageDialog(
-                            null, "Existen modificaciones en la pila.");
+                                null, "Existen modificaciones en la pila.");
                     }
                     break;
 
@@ -147,16 +152,41 @@ public class Principal2 {
                     break;
 
                 case 11:
+
+                    cola.encolar();
+                    break;
+
+                case 12:
+                    cola.desencolar();
+                    break;
+                case 13:
+                    cola.consultarFrente();
+                    break;
+                case 14:
+                    cola.mostrar();
+                    break;
+
+                case 15:
+                    if (cola.vacia()) {
+                        JOptionPane.showMessageDialog(null,
+                                "La cola está vacia.");
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "Existen tareas pendientes.");
+                    }
+                    break;
+
+                case 16:
                     JOptionPane.showMessageDialog(
-                        null, "Programa finalizado.");
+                            null, "Programa finalizado.");
                     break;
 
                 default:
                     JOptionPane.showMessageDialog(
-                        null, "Opción incorrecta.");
+                            null, "Opción incorrecta.");
             }
 
-        } while (opcion != 11);
+        } while (opcion != 16);
     }
 
     //solicita un texto; devuelve null si cancela o lo deja vacio
