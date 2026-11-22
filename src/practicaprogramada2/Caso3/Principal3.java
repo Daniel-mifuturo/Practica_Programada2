@@ -10,284 +10,597 @@ import javax.swing.JOptionPane;
  *
  * @author daniel
  */
+
 public class Principal3 {
 
     public static void main(String[] args) {
 
-        ListaDobleCircular participantes = new ListaDobleCircular();//participantes del programa
-        Participante p;//participante elegido para trabajar con su historial de entregas
+        ListaDobleCircular participantes =
+                new ListaDobleCircular();
+
         Cola cola = new Cola();
+
+        GestorRutas gestorRutas = new GestorRutas();
+
+        GestorMateriales gestorMateriales =
+                new GestorMateriales();
+
+        Participante p;
 
         int opcion = 0;
 
         do {
 
             String menu = JOptionPane.showInputDialog(
-                    "===== MENU DEL PROGRAMA DE RECICLAJE =====\n\n"
-                    + "--- Participantes ---\n"
-                    + "1. Agregar participante al inicio\n"
-                    + "2. Agregar participante al final\n"
-                    + "3. Eliminar participante\n"
-                    + "4. Buscar participante\n"
-                    + "5. Mostrar participantes (hacia adelante)\n"
-                    + "6. Mostrar participantes (hacia atrás)\n"
-                    + "--- Historial de entregas de un participante ---\n"
-                    + "7. Agregar entrega\n"
-                    + "8. Eliminar entrega\n"
-                    + "9. Historial de entregas\n"
-                    + "10. Verificar si la pila está vacía\n"
-                    + "--- Solicitudes de recolección ---\n"
-                    + "11. Agregar solicitud de recolección\n"
-                    + "12. Atender solicitud de recolección\n"
-                    + "13. Consultar primera solicitud\n"
-                    + "14. Mostrar solicitudes pendientes\n"
-                    + "15. Verificar si la cola está vacía\n"
-                    + "16. Salir\n\n"
-                    + "Seleccione una opción:"
+                "===== MENU PRINCIPAL - PROGRAMA DE RECICLAJE =====\n\n"
+
+                + "--- PARTICIPANTES ---\n"
+                + "1. Agregar participante al inicio\n"
+                + "2. Agregar participante al final\n"
+                + "3. Eliminar participante\n"
+                + "4. Buscar participante\n"
+                + "5. Mostrar participantes (hacia adelante)\n"
+                + "6. Mostrar participantes (hacia atrás)\n\n"
+
+                + "--- HISTORIAL DE ENTREGAS ---\n"
+                + "7. Agregar entrega\n"
+                + "8. Eliminar entrega\n"
+                + "9. Mostrar historial de entregas\n"
+                + "10. Verificar si la pila está vacía\n\n"
+
+                + "--- SOLICITUDES DE RECOLECCION ---\n"
+                + "11. Agregar solicitud de recolección\n"
+                + "12. Atender solicitud de recolección\n"
+                + "13. Consultar primera solicitud\n"
+                + "14. Mostrar solicitudes pendientes\n"
+                + "15. Verificar si la cola está vacía\n\n"
+
+                + "--- RUTAS Y PARADAS DE CAMIONES ---\n"
+                + "16. Agregar ruta\n"
+                + "17. Mostrar rutas\n"
+                + "18. Eliminar ruta\n"
+                + "19. Agregar parada a una ruta\n"
+                + "20. Mostrar paradas de una ruta\n"
+                + "21. Buscar parada\n"
+                + "22. Eliminar parada\n"
+                + "23. Simular recorrido\n\n"
+
+                + "--- CATALOGO DE MATERIALES ---\n"
+                + "24. Agregar material\n"
+                + "25. Mostrar catálogo\n"
+                + "26. Buscar material\n"
+                + "27. Eliminar material\n\n"
+
+                + "28. Salir\n\n"
+
+                + "Seleccione una opción numérica (1-28):"
             );
 
             if (menu == null) {
-                opcion = 16;
+
+                opcion = 28;
+
             } else {
-                opcion = Integer.parseInt(menu);
+
+                try {
+
+                    opcion = Integer.parseInt(menu.trim());
+
+                } catch (NumberFormatException e) {
+
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Ingrese una opción numérica válida.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+
+                    opcion = 0;
+                }
             }
 
             switch (opcion) {
 
+                // =====================================
+                // PARTICIPANTES - LISTA DOBLE CIRCULAR
+                // =====================================
+
                 case 1:
+
                     agregarParticipante(participantes, true);
+
                     break;
 
                 case 2:
+
                     agregarParticipante(participantes, false);
+
                     break;
 
                 case 3:
+
                     eliminarParticipante(participantes);
+
                     break;
 
                 case 4:
+
                     p = pedirParticipante(participantes);
+
                     if (p != null) {
-                        JOptionPane.showMessageDialog(null, p.toString(), "Participante encontrado", JOptionPane.PLAIN_MESSAGE);
+
+                        JOptionPane.showMessageDialog(
+                            null,
+                            p.toString(),
+                            "Participante encontrado",
+                            JOptionPane.PLAIN_MESSAGE
+                        );
                     }
+
                     break;
 
                 case 5:
-                    JOptionPane.showMessageDialog(null, participantes.recorrerAdelante(),
-                            "Participantes (hacia adelante)", JOptionPane.PLAIN_MESSAGE);
+
+                    JOptionPane.showMessageDialog(
+                        null,
+                        participantes.recorrerAdelante(),
+                        "Participantes hacia adelante",
+                        JOptionPane.PLAIN_MESSAGE
+                    );
+
                     break;
 
                 case 6:
-                    JOptionPane.showMessageDialog(null, participantes.recorrerAtras(),
-                            "Participantes (hacia atrás)", JOptionPane.PLAIN_MESSAGE);
+
+                    JOptionPane.showMessageDialog(
+                        null,
+                        participantes.recorrerAtras(),
+                        "Participantes hacia atrás",
+                        JOptionPane.PLAIN_MESSAGE
+                    );
+
                     break;
 
+                // =====================================
+                // ENTREGAS - PILA
+                // =====================================
+
                 case 7:
-                    p = pedirParticipante(participantes);//la entrega se guarda en la pila de ese participante
+
+                    p = pedirParticipante(participantes);
+
                     if (p == null) {
                         break;
                     }
-                    String codigo = JOptionPane.showInputDialog(
-                            "Ingrese el código de la entrega:");
-                    if (codigo == null || codigo.trim().isEmpty()) {
-                        JOptionPane.showMessageDialog(null,
-                                "Error! Escribe un código válido",
-                                "Error", JOptionPane.ERROR_MESSAGE);
-                        break;
-                    }
-                    codigo = codigo.trim();
 
-                    String material = JOptionPane.showInputDialog(
-                            "Ingrese el material de la entrega:");
-                    if (material == null || material.trim().isEmpty()) {
-                        JOptionPane.showMessageDialog(null,
-                                "Error! Escribe un material válido",
-                                "Error", JOptionPane.ERROR_MESSAGE);
-                        break;
-                    }
-                    material = material.trim();
+                    String codigo = leerTexto(
+                        "Ingrese el código de la entrega:");
 
-                    String dato = JOptionPane.showInputDialog(
-                            "Ingrese la cantidad de material:");
-
-                    if (dato == null || dato.trim().isEmpty()) {
-
-                        JOptionPane.showMessageDialog(null,
-                                "Error: Ingrese una cantidad válida.",
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
-
+                    if (codigo == null) {
                         break;
                     }
 
-                    double cantidad = Double.parseDouble(dato.trim());
+                    String material = leerTexto(
+                        "Ingrese el material de la entrega:");
 
-                    String unidadMedida = JOptionPane.showInputDialog(
-                            "Ingrese la unidad de medida de la entrega:");
-                    if (unidadMedida == null || unidadMedida.trim().isEmpty()) {
-                        JOptionPane.showMessageDialog(null,
-                                "Error! Escribe una unidad de medida válida",
-                                "Error", JOptionPane.ERROR_MESSAGE);
+                    if (material == null) {
                         break;
                     }
-                    unidadMedida = unidadMedida.trim();
 
-                    String fecha = JOptionPane.showInputDialog(
-                            "Ingrese la fecha de la actividad:");
+                    String dato = leerTexto(
+                        "Ingrese la cantidad de material:");
 
-                    if (fecha == null || fecha.trim().isEmpty()) {
-                        JOptionPane.showMessageDialog(null,
-                                "Error! Escribe una fecha válida. Formato DD/MM/YYYY",
-                                "Error", JOptionPane.ERROR_MESSAGE);
+                    if (dato == null) {
                         break;
                     }
-                    fecha = fecha.trim();
+
+                    double cantidad;
+
+                    try {
+
+                        cantidad = Double.parseDouble(dato);
+
+                        if (cantidad <= 0) {
+
+                            JOptionPane.showMessageDialog(
+                                null,
+                                "La cantidad debe ser mayor que cero."
+                            );
+
+                            break;
+                        }
+
+                    } catch (NumberFormatException e) {
+
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "Ingrese una cantidad numérica válida.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+
+                        break;
+                    }
+
+                    String unidadMedida = leerTexto(
+                        "Ingrese la unidad de medida de la entrega:");
+
+                    if (unidadMedida == null) {
+                        break;
+                    }
+
+                    String fecha = leerTexto(
+                        "Ingrese la fecha de la entrega (DD/MM/YYYY):");
+
+                    if (fecha == null) {
+                        break;
+                    }
 
                     Entrega entrega = new Entrega(
-                            codigo, material, cantidad, unidadMedida,
-                            fecha);
+                        codigo,
+                        material,
+                        cantidad,
+                        unidadMedida,
+                        fecha
+                    );
 
                     p.getPilaEntregas().agregarPila(entrega);
+
                     break;
 
                 case 8:
+
                     p = pedirParticipante(participantes);
+
                     if (p != null) {
+
                         p.getPilaEntregas().Eliminar();
                     }
+
                     break;
 
                 case 9:
+
                     p = pedirParticipante(participantes);
+
                     if (p != null) {
+
                         p.getPilaEntregas().mostrar();
                     }
+
                     break;
 
                 case 10:
+
                     p = pedirParticipante(participantes);
+
                     if (p != null) {
+
                         if (p.getPilaEntregas().vacio()) {
+
                             JOptionPane.showMessageDialog(
-                                    null, "La pila está vacía.");
+                                null,
+                                "La pila está vacía."
+                            );
+
                         } else {
+
                             JOptionPane.showMessageDialog(
-                                    null, "Existen entregas en la pila.");
+                                null,
+                                "Existen entregas en la pila."
+                            );
                         }
                     }
+
                     break;
 
+                // =====================================
+                // SOLICITUDES - COLA
+                // =====================================
+
                 case 11:
+
                     cola.encolar();
+
                     break;
 
                 case 12:
+
                     cola.desencolar();
+
                     break;
 
                 case 13:
+
                     cola.consultarFrente();
+
                     break;
 
                 case 14:
+
                     cola.mostrar();
+
                     break;
 
                 case 15:
+
                     if (cola.vacia()) {
-                        JOptionPane.showMessageDialog(null,
-                                "La cola está vacía.");
+
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "La cola está vacía."
+                        );
+
                     } else {
-                        JOptionPane.showMessageDialog(null,
-                                "Existen solicitudes pendientes.");
+
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "Existen solicitudes pendientes."
+                        );
                     }
+
                     break;
 
+                // =====================================
+                // RUTAS Y PARADAS - LISTA SIMPLE
+                // =====================================
+
                 case 16:
+
+                    gestorRutas.agregarRuta();
+
+                    break;
+
+                case 17:
+
+                    gestorRutas.mostrarRutas();
+
+                    break;
+
+                case 18:
+
+                    gestorRutas.eliminarRuta();
+
+                    break;
+
+                case 19:
+
+                    gestorRutas.agregarParada();
+
+                    break;
+
+                case 20:
+
+                    gestorRutas.mostrarParadas();
+
+                    break;
+
+                case 21:
+
+                    gestorRutas.buscarParada();
+
+                    break;
+
+                case 22:
+
+                    gestorRutas.eliminarParada();
+
+                    break;
+
+                case 23:
+
+                    gestorRutas.simularRecorrido();
+
+                    break;
+
+                // =====================================
+                // MATERIALES - LISTA SIMPLE
+                // =====================================
+
+                case 24:
+
+                    gestorMateriales.agregarMaterial();
+
+                    break;
+
+                case 25:
+
+                    gestorMateriales.mostrarCatalogo();
+
+                    break;
+
+                case 26:
+
+                    gestorMateriales.buscarMaterial();
+
+                    break;
+
+                case 27:
+
+                    gestorMateriales.eliminarMaterial();
+
+                    break;
+
+                // =====================================
+                // SALIR
+                // =====================================
+
+                case 28:
+
                     JOptionPane.showMessageDialog(
-                            null, "Programa finalizado.");
+                        null,
+                        "Programa finalizado."
+                    );
+
                     break;
 
                 default:
+
                     JOptionPane.showMessageDialog(
-                            null, "Opción incorrecta.");
+                        null,
+                        "Opción incorrecta.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+
+                    break;
             }
 
-        } while (opcion != 16);
+        } while (opcion != 28);
     }
 
-    //solicita un texto; devuelve null si cancela o lo deja vacio
+    // =====================================
+    // METODO PARA LEER TEXTO
+    // =====================================
+
     public static String leerTexto(String mensaje) {
+
         String texto = JOptionPane.showInputDialog(mensaje);
-        if (texto == null) {
-            JOptionPane.showMessageDialog(null, "Operación cancelada", "Error", JOptionPane.ERROR_MESSAGE);
+
+        if (texto == null || texto.trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo no puede estar vacío.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+
             return null;
-        } else if (texto.length() == 0) {
-            JOptionPane.showMessageDialog(null, "Error! El valor no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
-            return null;
-        } else {
-            return texto;
         }
+
+        return texto.trim();
     }
 
-    //pide el codigo de un participante y lo busca en la lista; devuelve null si no existe
-    public static Participante pedirParticipante(ListaDobleCircular participantes) {
+    // =====================================
+    // BUSCAR PARTICIPANTE
+    // =====================================
+
+    public static Participante pedirParticipante(
+            ListaDobleCircular participantes) {
+
         if (participantes.vacia()) {
-            JOptionPane.showMessageDialog(null, "No hay participantes registrados");
+
+            JOptionPane.showMessageDialog(
+                null,
+                "No hay participantes registrados."
+            );
+
             return null;
         }
-        String codigo = leerTexto("Ingrese el código del participante:");
+
+        String codigo = leerTexto(
+            "Ingrese el código del participante:");
+
         if (codigo == null) {
             return null;
         }
+
         Participante p = participantes.buscar(codigo);
+
         if (p == null) {
-            JOptionPane.showMessageDialog(null, "No existe un participante con el código " + codigo,
-                    "Participante", JOptionPane.WARNING_MESSAGE);
+
+            JOptionPane.showMessageDialog(
+                null,
+                "No existe un participante con el código " + codigo,
+                "Participante",
+                JOptionPane.WARNING_MESSAGE
+            );
         }
+
         return p;
     }
 
-    //registra un participante al inicio o al final, sin permitir codigos repetidos
-    public static void agregarParticipante(ListaDobleCircular participantes, boolean alInicio) {
-        String codigo = leerTexto("Ingrese el código del participante:");
+    // =====================================
+    // AGREGAR PARTICIPANTE
+    // =====================================
+
+    public static void agregarParticipante(
+            ListaDobleCircular participantes,
+            boolean alInicio) {
+
+        String codigo = leerTexto(
+            "Ingrese el código del participante:");
+
         if (codigo == null) {
             return;
         }
+
         if (participantes.buscar(codigo) != null) {
-            JOptionPane.showMessageDialog(null, "Ya existe un participante con el código " + codigo,
-                    "Código repetido", JOptionPane.ERROR_MESSAGE);
+
+            JOptionPane.showMessageDialog(
+                null,
+                "Ya existe un participante con el código " + codigo,
+                "Código repetido",
+                JOptionPane.ERROR_MESSAGE
+            );
+
             return;
         }
-        String nombre = leerTexto("Ingrese el nombre del participante:");
+
+        String nombre = leerTexto(
+            "Ingrese el nombre del participante:");
+
         if (nombre == null) {
             return;
         }
+
         Participante p = new Participante(codigo, nombre);
+
         if (alInicio) {
+
             participantes.insertarInicio(p);
+
         } else {
+
             participantes.insertarFinal(p);
         }
-        JOptionPane.showMessageDialog(null, "Participante agregado correctamente");
+
+        JOptionPane.showMessageDialog(
+            null,
+            "Participante agregado correctamente."
+        );
     }
 
-    //elimina un participante por codigo (junto con su historial de entregas)
-    public static void eliminarParticipante(ListaDobleCircular participantes) {
+    // =====================================
+    // ELIMINAR PARTICIPANTE
+    // =====================================
+
+    public static void eliminarParticipante(
+            ListaDobleCircular participantes) {
+
         if (participantes.vacia()) {
-            JOptionPane.showMessageDialog(null, "No hay participantes registrados");
+
+            JOptionPane.showMessageDialog(
+                null,
+                "No hay participantes registrados."
+            );
+
             return;
         }
-        String codigo = leerTexto("Ingrese el código del participante a eliminar:");
+
+        String codigo = leerTexto(
+            "Ingrese el código del participante a eliminar:");
+
         if (codigo == null) {
             return;
         }
+
         if (participantes.eliminar(codigo)) {
-            JOptionPane.showMessageDialog(null, "Participante eliminado correctamente");
+
+            JOptionPane.showMessageDialog(
+                null,
+                "Participante eliminado correctamente."
+            );
+
         } else {
-            JOptionPane.showMessageDialog(null, "No existe un participante con el código " + codigo,
-                    "Eliminar participante", JOptionPane.WARNING_MESSAGE);
+
+            JOptionPane.showMessageDialog(
+                null,
+                "No existe un participante con el código " + codigo,
+                "Eliminar participante",
+                JOptionPane.WARNING_MESSAGE
+            );
         }
     }
 }
